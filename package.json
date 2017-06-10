@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "chrome-remote-interface": "^0.23.2",
+    "dotenv": "^4.0.0",
+    "irc": "^0.5.2",
+    "twitch-api": "^0.4.6"
+  }
+}
