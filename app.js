@@ -1,19 +1,25 @@
 require('dotenv').config();
 
 // let chatBot = new (require('./src/ChatBot'))();
-let chrome = new (require('./src/Chrome'))();
 let commander = new (require('./src/Commander'))();
+let chromeLauncher = require('chrome-launcher');
 
-chrome.open();
 
-setTimeout(() => {
-  console.log('start commander');
+chromeLauncher.launch({
+  startingUrl: process.env.CHROME_URL,
+  port: 9222,
+  chromeFlags: [
+    `--user-data-dir=\.tmp`,
+    `--mute-audio`,
+    `--aggressive-cache-discard`
+  ]
+}).then(chrome => {
   commander.run();
-}, 3000); // wait for chrome to boot
+});
 
 commander.on('ready', () => {
   setInterval(() => {
-    // commander.sendKey(38);
+    commander.sendKey(38);
   }, 2000);
 });
 

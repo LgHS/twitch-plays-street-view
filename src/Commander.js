@@ -6,9 +6,10 @@ class Commander extends EventEmitter {
     super();
 
     this.client = null;
+    this.chrome = null;
   }
 
-  run() {
+  run(chrome) {
     let self = this;
 
     CDP((client) => {
@@ -40,6 +41,11 @@ class Commander extends EventEmitter {
   }
 
   sendKey(key) {
+    if(!this.client) {
+      console.error('Chrome remote interface not ready. Call run() ?');
+      return;
+    }
+
     this.client.send('Input.dispatchKeyEvent', {
       type: 'keyDown',
       // text: 'a',
